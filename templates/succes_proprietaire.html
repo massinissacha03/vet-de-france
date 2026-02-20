@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <title>Compte créé - VetDeFrance</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" media="screen" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .success-checkmark {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 24px;
+            border-radius: 50%;
+            display: block;
+            stroke-width: 2;
+            stroke: #10b981;
+            stroke-miterlimit: 10;
+            box-shadow: inset 0px 0px 0px #10b981;
+            animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
+        }
+
+        .success-checkmark__circle {
+            stroke-dasharray: 166;
+            stroke-dashoffset: 166;
+            stroke-width: 2;
+            stroke-miterlimit: 10;
+            stroke: #10b981;
+            fill: none;
+            animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+        }
+
+        .success-checkmark__check {
+            transform-origin: 50% 50%;
+            stroke-dasharray: 48;
+            stroke-dashoffset: 48;
+            animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+        }
+
+        @keyframes stroke {
+            100% {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        @keyframes scale {
+
+            0%,
+            100% {
+                transform: none;
+            }
+
+            50% {
+                transform: scale3d(1.1, 1.1, 1);
+            }
+        }
+
+        @keyframes fill {
+            100% {
+                box-shadow: inset 0px 0px 0px 30px #10b981;
+            }
+        }
+
+        .id-box {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 24px;
+            border-radius: 12px;
+            text-align: center;
+            margin: 24px 0;
+            box-shadow: 0 10px 40px rgba(16, 185, 129, 0.3);
+        }
+
+        .id-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: 4px;
+            margin: 12px 0;
+            font-family: 'Courier New', monospace;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="content-wrapper">
+        <div style="text-align: center; margin-bottom: 40px;">
+            <svg class="success-checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                <circle class="success-checkmark__circle" cx="26" cy="26" r="25" fill="none" />
+                <path class="success-checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
+            </svg>
+            <h1 style="color: var(--success-color);"><i class="fas fa-check-circle"></i> Compte créé avec succès !</h1>
+            <p style="color: var(--text-light); font-size: 1.1rem; margin-top: 12px;">
+                Bienvenue chez VetDeFrance, {{ prenom }} {{ nom }} !
+            </p>
+        </div>
+
+        <div class="card">
+            <h3 style="margin-top: 0; text-align: center; color: var(--primary-color);">
+                <i class="fas fa-id-badge"></i> Votre identifiant propriétaire
+            </h3>
+
+            <div class="id-box">
+                <p style="margin: 0; font-size: 0.9rem; opacity: 0.9;">Votre ID unique</p>
+                <div class="id-value">{{ idpro }}</div>
+                <p style="margin: 0; font-size: 0.85rem; opacity: 0.9;">
+                    <i class="fas fa-exclamation-triangle"></i> Conservez cet identifiant précieusement
+                </p>
+            </div>
+
+            <div style="background: #fef3c7; border-left: 4px solid #f59e0b; padding: 16px; border-radius: 8px; margin-bottom: 24px;">
+                <p style="margin: 0 0 12px 0; color: #92400e; font-weight: 700;">
+                    <i class="fas fa-info-circle"></i> Informations importantes :
+                </p>
+                <ul style="margin: 0; padding-left: 20px; color: #92400e; font-size: 0.9rem;">
+                    <li style="margin-bottom: 8px;"><strong>Notez cet identifiant</strong> - Vous en aurez besoin pour accéder à vos données</li>
+                    <li style="margin-bottom: 8px;"><strong>Email enregistré :</strong> {{ mail }}</li>
+                    <li style="margin-bottom: 8px;"><strong>Téléphone :</strong> {{ tel }}</li>
+                </ul>
+            </div>
+
+            <h3 style="margin-top: 24px; margin-bottom: 16px; color: var(--primary-color);">
+                <i class="fas fa-list-ol"></i> Prochaines étapes
+            </h3>
+
+            <div style="display: grid; gap: 16px;">
+                <div style="display: flex; align-items: start; gap: 16px; padding: 16px; background: var(--background-lighter); border-radius: 8px;">
+                    <div style="flex-shrink: 0; width: 32px; height: 32px; background: var(--primary-color); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700;">
+                        1
+                    </div>
+                    <div>
+                        <h4 style="margin: 0 0 4px 0; color: var(--primary-color);">Choisissez un centre vétérinaire</h4>
+                        <p style="margin: 0; color: var(--text-light); font-size: 0.9rem;">
+                            Parcourez notre <a href="{{ url_for('inv') }}" style="font-weight: 700;">liste de centres partenaires</a> et contactez celui de votre choix
+                        </p>
+                    </div>
+                </div>
+
+                <div style="display: flex; align-items: start; gap: 16px; padding: 16px; background: var(--background-lighter); border-radius: 8px;">
+                    <div style="flex-shrink: 0; width: 32px; height: 32px; background: var(--primary-color); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700;">
+                        2
+                    </div>
+                    <div>
+                        <h4 style="margin: 0 0 4px 0; color: var(--primary-color);">Enregistrez votre animal</h4>
+                        <p style="margin: 0; color: var(--text-light); font-size: 0.9rem;">
+                            Le vétérinaire créera la fiche de votre animal et l'associera à votre compte
+                        </p>
+                    </div>
+                </div>
+
+                <div style="display: flex; align-items: start; gap: 16px; padding: 16px; background: var(--background-lighter); border-radius: 8px;">
+                    <div style="flex-shrink: 0; width: 32px; height: 32px; background: var(--primary-color); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700;">
+                        3
+                    </div>
+                    <div>
+                        <h4 style="margin: 0 0 4px 0; color: var(--primary-color);">Connectez-vous</h4>
+                        <p style="margin: 0; color: var(--text-light); font-size: 0.9rem;">
+                            Utilisez votre <strong>email</strong>, <strong>téléphone</strong> et <strong>l'ID de votre animal</strong> pour vous connecter
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 12px; margin-top: 32px;">
+                <a href="{{ url_for('inv') }}" style="flex: 1; text-decoration: none;">
+                    <button type="button" style="width: 100%; background: var(--secondary-color);">
+                        <i class="fas fa-hospital"></i> Voir nos centres
+                    </button>
+                </a>
+                <a href="{{ url_for('accueil') }}" style="flex: 1; text-decoration: none;">
+                    <button type="button" style="width: 100%;">
+                        <i class="fas fa-home"></i> Retour à l'accueil
+                    </button>
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

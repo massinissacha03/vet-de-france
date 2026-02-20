@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modifier - VetDeFrance</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" media="screen" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .deco-animal {
+            position: fixed;
+            bottom: 0;
+            opacity: 0.18;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .deco-cat {
+            left: 2vw;
+            animation: decoFloat 6s ease-in-out infinite;
+        }
+
+        .deco-dog {
+            right: 2vw;
+            animation: decoFloat 6s ease-in-out infinite 1s;
+        }
+
+        @keyframes decoFloat {
+
+            0%,
+            100% {
+                transform: translateY(0)
+            }
+
+            50% {
+                transform: translateY(-18px)
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <svg class="deco-animal deco-cat" width="180" viewBox="0 0 100 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="18,38 10,10 32,28" fill="white" />
+        <polygon points="82,38 90,10 68,28" fill="white" />
+        <ellipse cx="50" cy="50" rx="32" ry="28" fill="white" />
+        <ellipse cx="38" cy="46" rx="5" ry="6" fill="#1f2937" />
+        <ellipse cx="62" cy="46" rx="5" ry="6" fill="#1f2937" />
+        <circle cx="40" cy="44" r="1.5" fill="white" />
+        <circle cx="64" cy="44" r="1.5" fill="white" />
+        <ellipse cx="50" cy="56" rx="3" ry="2" fill="#f87171" />
+        <line x1="20" y1="54" x2="44" y2="57" stroke="#1f2937" stroke-width="1.2" stroke-linecap="round" />
+        <line x1="20" y1="59" x2="44" y2="59" stroke="#1f2937" stroke-width="1.2" stroke-linecap="round" />
+        <line x1="56" y1="57" x2="80" y2="54" stroke="#1f2937" stroke-width="1.2" stroke-linecap="round" />
+        <line x1="56" y1="59" x2="80" y2="59" stroke="#1f2937" stroke-width="1.2" stroke-linecap="round" />
+        <ellipse cx="50" cy="95" rx="26" ry="22" fill="white" />
+        <path d="M76 105 Q95 80 88 65" stroke="white" stroke-width="8" fill="none" stroke-linecap="round" />
+        <ellipse cx="34" cy="115" rx="9" ry="6" fill="white" />
+        <ellipse cx="66" cy="115" rx="9" ry="6" fill="white" />
+    </svg>
+    <svg class="deco-animal deco-dog" width="180" viewBox="0 0 100 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="24" cy="42" rx="12" ry="20" fill="white" transform="rotate(-15 24 42)" />
+        <ellipse cx="76" cy="42" rx="12" ry="20" fill="white" transform="rotate(15 76 42)" />
+        <ellipse cx="50" cy="46" rx="28" ry="26" fill="white" />
+        <ellipse cx="39" cy="42" rx="5" ry="5.5" fill="#1f2937" />
+        <ellipse cx="61" cy="42" rx="5" ry="5.5" fill="#1f2937" />
+        <circle cx="41" cy="40" r="1.5" fill="white" />
+        <circle cx="63" cy="40" r="1.5" fill="white" />
+        <ellipse cx="50" cy="56" rx="13" ry="9" fill="#f3f4f6" />
+        <ellipse cx="50" cy="52" rx="4" ry="3" fill="#1f2937" />
+        <ellipse cx="50" cy="94" rx="28" ry="23" fill="white" />
+        <path d="M78 90 Q100 70 92 55" stroke="white" stroke-width="8" fill="none" stroke-linecap="round" />
+        <ellipse cx="33" cy="114" rx="10" ry="6" fill="white" />
+        <ellipse cx="67" cy="114" rx="10" ry="6" fill="white" />
+    </svg>
+    <div id="container">
+        <form method="POST" class="a">
+            <div style="text-align: center; margin-bottom: 30px;">
+                <div class="icon-wrapper secondary"
+                    style="margin: 0 auto 20px; width: 64px; height: 64px; font-size: 2.5rem;">
+                    <i class="fas fa-edit"></i>
+                </div>
+                <h1 style="margin-bottom: 10px;"><i class="fas fa-edit"></i> Modifier les informations</h1>
+                <p style="color: var(--text-light); font-size: 0.95rem;">
+                    Mise à jour du dossier médical
+                </p>
+            </div>
+
+            <div>
+                <label for="tochange"><b><i class="fas fa-bullseye"></i> Que souhaitez-vous modifier ?</b></label>
+                <select name="tochange" id="tochange" required autofocus>
+                    <option value="">-- Sélectionnez un champ --</option>
+                    <option value='nom'><i class="fas fa-paw"></i> Nom de l'animal</option>
+                    <option value="age"><i class="fas fa-birthday-cake"></i> Âge</option>
+                    <option value="signedist"><i class="fas fa-sparkles"></i> Signes distinctifs</option>
+                </select>
+
+                <label for="valeur"><b><i class="fas fa-pen"></i> Nouvelle valeur</b></label>
+                <input type="text" id="valeur" placeholder="Nouvelle information" name="valeur" required>
+                <small style="display: block; margin-top: 5px; color: var(--text-light); font-size: 0.85rem;">
+                    <i class="fas fa-lightbulb"></i> Pour l'âge, entrez uniquement le nombre (exemple: 5)
+                </small>
+            </div>
+
+            <div style="margin-top: 30px; display: flex; gap: 12px; flex-wrap: wrap;">
+                <button type="submit" id='submit'
+                    style="flex: 1; min-width: 200px; background: var(--success-gradient); box-shadow: 0 8px 25px rgba(16, 185, 129, 0.35);">
+                    Appliquer les modifications <i class="fas fa-check"></i>
+                </button>
+                <a href="{{ url_for('pageredir') }}" style="flex: 1; min-width: 200px;">
+                    <button type="button"
+                        style="width: 100%; background: linear-gradient(135deg, #6b7280, #9ca3af); box-shadow: 0 8px 25px rgba(107, 114, 128, 0.35);">
+                        <i class="fas fa-arrow-left"></i> Annuler
+                    </button>
+                </a>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>

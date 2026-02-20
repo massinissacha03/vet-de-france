@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+venv/
+.venv/
+env/
+
+# Variables d'environnement (NE JAMAIS commit ce fichier)
+.env
+
+
+# Base de données locale
+*.sqlite
+*.db
+
+# Système
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+

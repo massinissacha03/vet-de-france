@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VetDeFrance - Bienvenue</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" media="screen" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <style>
+        /* Custom dropdown */
+        .custom-select-wrapper {
+            position: relative;
+            margin: 10px 0 22px;
+        }
+
+        .custom-select-trigger {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            background: #fff;
+            color: #6b7280;
+            transition: all 0.3s ease;
+            user-select: none;
+        }
+
+        .custom-select-trigger:hover {
+            border-color: #d1d5db;
+        }
+
+        .custom-select-trigger.open {
+            border-color: #10b981;
+            box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1);
+            color: #1f2937;
+        }
+
+        .custom-select-trigger .arrow {
+            transition: transform 0.3s ease;
+            color: #10b981;
+            font-size: 0.85rem;
+        }
+
+        .custom-select-trigger.open .arrow {
+            transform: rotate(180deg);
+        }
+
+        .custom-options {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 0;
+            right: 0;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(16, 185, 129, 0.15);
+            overflow: hidden;
+            z-index: 100;
+            opacity: 0;
+            transform: translateY(-8px);
+            pointer-events: none;
+            transition: opacity 0.25s ease, transform 0.25s ease;
+        }
+
+        .custom-options.open {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: all;
+        }
+
+        .custom-option {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 16px 20px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            color: #1f2937;
+            transition: background 0.2s ease;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .custom-option:last-child {
+            border-bottom: none;
+        }
+
+        .custom-option:hover {
+            background: linear-gradient(90deg, rgba(16, 185, 129, 0.07), rgba(16, 185, 129, 0.02));
+        }
+
+        .custom-option.selected {
+            color: #10b981;
+            font-weight: 600;
+        }
+
+        .custom-option .opt-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+
+        .custom-option .opt-icon.vet {
+            background: rgba(16, 185, 129, 0.12);
+        }
+
+        .custom-option .opt-icon.prop {
+            background: rgba(59, 130, 246, 0.12);
+        }
+
+        .custom-option .opt-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .custom-option .opt-text span {
+            font-size: 0.8rem;
+            color: #9ca3af;
+            font-weight: 400;
+            margin-top: 2px;
+        }
+
+        /* SVG décoratifs */
+        .deco-animal {
+            position: fixed;
+            bottom: 0;
+            opacity: 0.18;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .deco-cat {
+            left: 2vw;
+            animation: decoFloat 6s ease-in-out infinite;
+        }
+
+        .deco-dog {
+            right: 2vw;
+            animation: decoFloat 6s ease-in-out infinite 1s;
+        }
+
+        @keyframes decoFloat {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-18px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Chat à gauche -->
+    <svg class="deco-animal deco-cat" width="180" viewBox="0 0 100 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- oreilles -->
+        <polygon points="18,38 10,10 32,28" fill="white" />
+        <polygon points="82,38 90,10 68,28" fill="white" />
+        <!-- tête -->
+        <ellipse cx="50" cy="50" rx="32" ry="28" fill="white" />
+        <!-- yeux -->
+        <ellipse cx="38" cy="46" rx="5" ry="6" fill="#1f2937" />
+        <ellipse cx="62" cy="46" rx="5" ry="6" fill="#1f2937" />
+        <!-- reflets yeux -->
+        <circle cx="40" cy="44" r="1.5" fill="white" />
+        <circle cx="64" cy="44" r="1.5" fill="white" />
+        <!-- nez -->
+        <ellipse cx="50" cy="56" rx="3" ry="2" fill="#f87171" />
+        <!-- moustaches -->
+        <line x1="20" y1="54" x2="44" y2="57" stroke="#1f2937" stroke-width="1.2" stroke-linecap="round" />
+        <line x1="20" y1="59" x2="44" y2="59" stroke="#1f2937" stroke-width="1.2" stroke-linecap="round" />
+        <line x1="56" y1="57" x2="80" y2="54" stroke="#1f2937" stroke-width="1.2" stroke-linecap="round" />
+        <line x1="56" y1="59" x2="80" y2="59" stroke="#1f2937" stroke-width="1.2" stroke-linecap="round" />
+        <!-- corps -->
+        <ellipse cx="50" cy="95" rx="26" ry="22" fill="white" />
+        <!-- queue -->
+        <path d="M76 105 Q95 80 88 65" stroke="white" stroke-width="8" fill="none" stroke-linecap="round" />
+        <!-- pattes avant -->
+        <ellipse cx="34" cy="115" rx="9" ry="6" fill="white" />
+        <ellipse cx="66" cy="115" rx="9" ry="6" fill="white" />
+    </svg>
+
+    <!-- Chien à droite -->
+    <svg class="deco-animal deco-dog" width="180" viewBox="0 0 100 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- oreilles tombantes -->
+        <ellipse cx="24" cy="42" rx="12" ry="20" fill="white" transform="rotate(-15 24 42)" />
+        <ellipse cx="76" cy="42" rx="12" ry="20" fill="white" transform="rotate(15 76 42)" />
+        <!-- tête -->
+        <ellipse cx="50" cy="46" rx="28" ry="26" fill="white" />
+        <!-- yeux -->
+        <ellipse cx="39" cy="42" rx="5" ry="5.5" fill="#1f2937" />
+        <ellipse cx="61" cy="42" rx="5" ry="5.5" fill="#1f2937" />
+        <circle cx="41" cy="40" r="1.5" fill="white" />
+        <circle cx="63" cy="40" r="1.5" fill="white" />
+        <!-- museau -->
+        <ellipse cx="50" cy="56" rx="13" ry="9" fill="#f3f4f6" />
+        <ellipse cx="50" cy="52" rx="4" ry="3" fill="#1f2937" />
+        <!-- corps -->
+        <ellipse cx="50" cy="94" rx="28" ry="23" fill="white" />
+        <!-- queue -->
+        <path d="M78 90 Q100 70 92 55" stroke="white" stroke-width="8" fill="none" stroke-linecap="round" />
+        <!-- pattes -->
+        <ellipse cx="33" cy="114" rx="10" ry="6" fill="white" />
+        <ellipse cx="67" cy="114" rx="10" ry="6" fill="white" />
+    </svg>
+
+    <div id="container">
+        <form method="POST" class="a" id="mainForm">
+            <div style="text-align: center; margin-bottom: 20px;">
+                <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo VetDeFrance" width="160"
+                    style="margin: 0 auto 10px; display: block; animation: float 3s ease-in-out infinite;">
+            </div>
+
+            <h1 style="margin-bottom: 8px;">VetDeFrance</h1>
+            <p style="text-align: center; color: var(--text-light); margin-bottom: 36px; font-size: 0.95rem;">
+                🐾 Plateforme de santé vétérinaire de confiance
+            </p>
+
+            <!-- Champ caché envoyé au serveur -->
+            <input type="hidden" name="mode" id="modeInput" required>
+
+            <div>
+                <label style="font-size: 1rem; margin-bottom: 12px;">
+                    <i class="fas fa-user-circle" style="margin-right: 8px; color: var(--primary-color);"></i>
+                    <b>Qui êtes-vous ?</b>
+                </label>
+
+                <div class="custom-select-wrapper">
+                    <div class="custom-select-trigger" id="selectTrigger">
+                        <span id="selectLabel">— Choisissez votre espace —</span>
+                        <i class="fas fa-chevron-down arrow"></i>
+                    </div>
+                    <div class="custom-options" id="customOptions">
+                        <div class="custom-option" data-value="vet">
+                            <div class="opt-icon vet"><i class="fas fa-user-md"></i></div>
+                            <div class="opt-text">
+                                Vétérinaire / Employé
+                                <span>Accès au tableau de bord du centre</span>
+                            </div>
+                        </div>
+                        <div class="custom-option" data-value="prop">
+                            <div class="opt-icon prop"><i class="fas fa-paw"></i></div>
+                            <div class="opt-text">
+                                Propriétaire d'animal
+                                <span>Consulter le suivi de votre animal</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" id="submit" style="margin-top: 8px;" disabled>
+                Accéder <i class="fas fa-arrow-right" style="margin-left: 8px;"></i>
+            </button>
+
+            <div class="divider"></div>
+
+            <p style="font-size: 0.88rem; color: var(--text-lighter); margin-top: 0;">
+                Propriétaire sans compte ? <a href="{{ url_for('creer_proprietaire') }}" style="font-weight: 700; color: var(--primary-color);">Créer mon compte <i class="fas fa-user-plus"></i></a>
+            </p>
+            <p style="font-size: 0.88rem; color: var(--text-lighter); margin-top: 8px;">
+                Première visite ? <a href="{{ url_for('inv') }}">Découvrir nos centres <i
+                        class="fas fa-hospital"></i></a>
+            </p>
+        </form>
+    </div>
+
+    <script>
+        const trigger = document.getElementById('selectTrigger');
+        const options = document.getElementById('customOptions');
+        const label = document.getElementById('selectLabel');
+        const input = document.getElementById('modeInput');
+        const btn = document.getElementById('submit');
+
+        trigger.addEventListener('click', () => {
+            trigger.classList.toggle('open');
+            options.classList.toggle('open');
+        });
+
+        document.querySelectorAll('.custom-option').forEach(opt => {
+            opt.addEventListener('click', () => {
+                const val = opt.dataset.value;
+                const text = opt.querySelector('.opt-text').childNodes[0].textContent.trim();
+                input.value = val;
+                label.innerHTML = (val === 'vet'
+                    ? '<i class="fas fa-user-md" style="margin-right:8px;color:#10b981;"></i>'
+                    : '<i class="fas fa-paw" style="margin-right:8px;color:#3b82f6;"></i>') + text;
+                trigger.style.color = '#1f2937';
+                trigger.classList.remove('open');
+                options.classList.remove('open');
+                document.querySelectorAll('.custom-option').forEach(o => o.classList.remove('selected'));
+                opt.classList.add('selected');
+                btn.disabled = false;
+            });
+        });
+
+        // Fermer si clic ailleurs
+        document.addEventListener('click', (e) => {
+            if (!trigger.contains(e.target) && !options.contains(e.target)) {
+                trigger.classList.remove('open');
+                options.classList.remove('open');
+            }
+        });
+    </script>
+</body>
+
+</html>

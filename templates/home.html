@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Connexion - VetDeFrance</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+  <div id="container">
+    <form method="POST" class="a">
+      <div style="text-align: center; margin-bottom: 30px;">
+        <div class="icon-wrapper primary" style="margin: 0 auto 20px; width: 64px; height: 64px; font-size: 2.5rem;">
+          <i class="fas fa-lock"></i>
+        </div>
+        <h1 style="margin-bottom: 10px;"><i class="fas fa-lock"></i> Connexion</h1>
+        <p style="color: var(--text-light); font-size: 0.95rem;">
+          Accès sécurisé - VetDeFrance
+        </p>
+      </div>
+
+      <div>
+        <label for="matricule"><b><i class="fas fa-hashtag"></i> Matricule</b></label>
+        <input type="text" id="matricule" placeholder="Votre matricule" name="matricule" required autofocus>
+
+        <label for="password"><b><i class="fas fa-lock"></i> Mot de passe</b></label>
+        <input type="password" id="password" placeholder="••••••••" name="password" required>
+      </div>
+
+      <button type="submit" style="margin-top: 20px;">
+        Se connecter <i class="fas fa-rocket" style="margin-left: 8px;"></i>
+      </button>
+      <p style="text-align: center; margin-top: 20px;">
+        <a href="{{ url_for('accueil') }}" style="font-weight: 600;"><i class="fas fa-arrow-left"></i> Retour à l'accueil</a>
+      </p>
+    </form>
+  </div>
+</body>
+
+</html>

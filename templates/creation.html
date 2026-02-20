@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Créer un compte - VetDeFrance</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" media="screen" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .deco-animal {
+            position: fixed;
+            bottom: 0;
+            opacity: 0.18;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .deco-cat {
+            left: 2vw;
+            animation: decoFloat 6s ease-in-out infinite;
+        }
+
+        .deco-dog {
+            right: 2vw;
+            animation: decoFloat 6s ease-in-out infinite 1s;
+        }
+
+        @keyframes decoFloat {
+
+            0%,
+            100% {
+                transform: translateY(0)
+            }
+
+            50% {
+                transform: translateY(-18px)
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <svg class="deco-animal deco-cat" width="180" viewBox="0 0 100 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="18,38 10,10 32,28" fill="white" />
+        <polygon points="82,38 90,10 68,28" fill="white" />
+        <ellipse cx="50" cy="50" rx="32" ry="28" fill="white" />
+        <ellipse cx="38" cy="46" rx="5" ry="6" fill="#1f2937" />
+        <ellipse cx="62" cy="46" rx="5" ry="6" fill="#1f2937" />
+        <circle cx="40" cy="44" r="1.5" fill="white" />
+        <circle cx="64" cy="44" r="1.5" fill="white" />
+        <ellipse cx="50" cy="56" rx="3" ry="2" fill="#f87171" />
+        <line x1="20" y1="54" x2="44" y2="57" stroke="#1f2937" stroke-width="1.2" stroke-linecap="round" />
+        <line x1="20" y1="59" x2="44" y2="59" stroke="#1f2937" stroke-width="1.2" stroke-linecap="round" />
+        <line x1="56" y1="57" x2="80" y2="54" stroke="#1f2937" stroke-width="1.2" stroke-linecap="round" />
+        <line x1="56" y1="59" x2="80" y2="59" stroke="#1f2937" stroke-width="1.2" stroke-linecap="round" />
+        <ellipse cx="50" cy="95" rx="26" ry="22" fill="white" />
+        <path d="M76 105 Q95 80 88 65" stroke="white" stroke-width="8" fill="none" stroke-linecap="round" />
+        <ellipse cx="34" cy="115" rx="9" ry="6" fill="white" />
+        <ellipse cx="66" cy="115" rx="9" ry="6" fill="white" />
+    </svg>
+    <svg class="deco-animal deco-dog" width="180" viewBox="0 0 100 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="24" cy="42" rx="12" ry="20" fill="white" transform="rotate(-15 24 42)" />
+        <ellipse cx="76" cy="42" rx="12" ry="20" fill="white" transform="rotate(15 76 42)" />
+        <ellipse cx="50" cy="46" rx="28" ry="26" fill="white" />
+        <ellipse cx="39" cy="42" rx="5" ry="5.5" fill="#1f2937" />
+        <ellipse cx="61" cy="42" rx="5" ry="5.5" fill="#1f2937" />
+        <circle cx="41" cy="40" r="1.5" fill="white" />
+        <circle cx="63" cy="40" r="1.5" fill="white" />
+        <ellipse cx="50" cy="56" rx="13" ry="9" fill="#f3f4f6" />
+        <ellipse cx="50" cy="52" rx="4" ry="3" fill="#1f2937" />
+        <ellipse cx="50" cy="94" rx="28" ry="23" fill="white" />
+        <path d="M78 90 Q100 70 92 55" stroke="white" stroke-width="8" fill="none" stroke-linecap="round" />
+        <ellipse cx="33" cy="114" rx="10" ry="6" fill="white" />
+        <ellipse cx="67" cy="114" rx="10" ry="6" fill="white" />
+    </svg>
+    <div id="container">
+        <form method="POST" class="a">
+            <div style="text-align: center; margin-bottom: 30px;">
+                <div class="icon-wrapper primary"
+                    style="margin: 0 auto 20px; width: 64px; height: 64px; font-size: 2.5rem;">
+                    <i class="fas fa-user-plus"></i>
+                </div>
+                <h1 style="margin-bottom: 10px;"><i class="fas fa-clipboard-list"></i> Créer un compte</h1>
+                <p style="color: var(--text-light); font-size: 0.95rem;">
+                    Inscription vétérinaire - VetDeFrance
+                </p>
+            </div>
+
+            <div>
+
+                <label for="nom"><b><i class="fas fa-user"></i> Nom</b></label>
+                <input type="text" id="nom" placeholder="DUPONT" name="nom" required>
+
+                <label for="prenom"><b><i class="fas fa-user"></i> Prénom</b></label>
+                <input type="text" id="prenom" placeholder="Jean" name="prenom" required>
+
+                <label for="adresse"><b><i class="fas fa-map-marker-alt"></i> Adresse complète</b></label>
+                <input type="text" id="adresse" placeholder="30 rue Masson - 78600 - Maisons-Laffitte" name="adresse"
+                    required>
+
+                <label for="tel"><b><i class="fas fa-phone"></i> Téléphone</b></label>
+                <input type="tel" id="tel" placeholder="0656666955" name="tel" pattern="[0-9]{10}"
+                    title="10 chiffres requis" required>
+
+                <label for="naissance"><b><i class="fas fa-birthday-cake"></i> Date de naissance</b></label>
+                <input type="text" id="naissance" maxlength="10" placeholder="10-12-1990" name="naissance"
+                    pattern="[0-9]{2}-[0-9]{2}-[0-9]{4}" title="Format: JJ-MM-AAAA" required>
+
+                <label for="numsec"><b><i class="fas fa-id-card"></i> Numéro de sécurité sociale</b></label>
+                <input type="text" id="numsec" maxlength="13" placeholder="1031235309876" name="numsec"
+                    pattern="[0-9]{13}" title="13 chiffres requis" required>
+
+                <label for="loginn"><b><i class="fas fa-envelope"></i> Email professionnel</b></label>
+                <input type="email" id="loginn" placeholder="employe@vetdefrance.fr" name="loginn" required>
+
+                <label for="mdp"><b><i class="fas fa-lock"></i> Mot de passe</b></label>
+                <input type="password" id="mdp" placeholder="••••••••" name="mdp" minlength="6"
+                    title="Minimum 6 caractères" required>
+
+                <label for="idcentre"><b><i class="fas fa-hospital"></i> Centre vétérinaire</b></label>
+                <select id="idcentre" name="idcentre">
+                    <option value="">— Non affecté pour le moment —</option>
+                    {% for c in centres %}
+                    <option value="{{ c.idcentre }}">{{ c.nomcentre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <button type="submit" id="submit" style="margin-top: 20px;">
+                Créer mon compte <i class="fas fa-rocket" style="margin-left: 8px;"></i>
+            </button>
+            <p style="text-align: center; margin-top: 20px;">
+                <a href="{{ url_for('emp') }}" style="font-weight: 600;"><i class="fas fa-arrow-left"></i> Retour à la
+                    connexion</a>
+            </p>
+        </form>
+    </div>
+</body>
+
+</html>

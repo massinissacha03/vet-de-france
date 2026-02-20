@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Centres Vétérinaires - VetDeFrance</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .deco-animal {
+      position: fixed;
+      bottom: 0;
+      opacity: 0.18;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .deco-cat {
+      left: 2vw;
+      animation: decoFloat 6s ease-in-out infinite;
+    }
+
+    .deco-dog {
+      right: 2vw;
+      animation: decoFloat 6s ease-in-out infinite 1s;
+    }
+
+    @keyframes decoFloat {
+
+      0%,
+      100% {
+        transform: translateY(0)
+      }
+
+      50% {
+        transform: translateY(-18px)
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <svg class="deco-animal deco-cat" width="180" viewBox="0 0 100 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <polygon points="18,38 10,10 32,28" fill="white" />
+    <polygon points="82,38 90,10 68,28" fill="white" />
+    <ellipse cx="50" cy="50" rx="32" ry="28" fill="white" />
+    <ellipse cx="38" cy="46" rx="5" ry="6" fill="#1f2937" />
+    <ellipse cx="62" cy="46" rx="5" ry="6" fill="#1f2937" />
+    <circle cx="40" cy="44" r="1.5" fill="white" />
+    <circle cx="64" cy="44" r="1.5" fill="white" />
+    <ellipse cx="50" cy="56" rx="3" ry="2" fill="#f87171" />
+    <line x1="20" y1="54" x2="44" y2="57" stroke="#1f2937" stroke-width="1.2" stroke-linecap="round" />
+    <line x1="20" y1="59" x2="44" y2="59" stroke="#1f2937" stroke-width="1.2" stroke-linecap="round" />
+    <line x1="56" y1="57" x2="80" y2="54" stroke="#1f2937" stroke-width="1.2" stroke-linecap="round" />
+    <line x1="56" y1="59" x2="80" y2="59" stroke="#1f2937" stroke-width="1.2" stroke-linecap="round" />
+    <ellipse cx="50" cy="95" rx="26" ry="22" fill="white" />
+    <path d="M76 105 Q95 80 88 65" stroke="white" stroke-width="8" fill="none" stroke-linecap="round" />
+    <ellipse cx="34" cy="115" rx="9" ry="6" fill="white" />
+    <ellipse cx="66" cy="115" rx="9" ry="6" fill="white" />
+  </svg>
+  <svg class="deco-animal deco-dog" width="180" viewBox="0 0 100 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="24" cy="42" rx="12" ry="20" fill="white" transform="rotate(-15 24 42)" />
+    <ellipse cx="76" cy="42" rx="12" ry="20" fill="white" transform="rotate(15 76 42)" />
+    <ellipse cx="50" cy="46" rx="28" ry="26" fill="white" />
+    <ellipse cx="39" cy="42" rx="5" ry="5.5" fill="#1f2937" />
+    <ellipse cx="61" cy="42" rx="5" ry="5.5" fill="#1f2937" />
+    <circle cx="41" cy="40" r="1.5" fill="white" />
+    <circle cx="63" cy="40" r="1.5" fill="white" />
+    <ellipse cx="50" cy="56" rx="13" ry="9" fill="#f3f4f6" />
+    <ellipse cx="50" cy="52" rx="4" ry="3" fill="#1f2937" />
+    <ellipse cx="50" cy="94" rx="28" ry="23" fill="white" />
+    <path d="M78 90 Q100 70 92 55" stroke="white" stroke-width="8" fill="none" stroke-linecap="round" />
+    <ellipse cx="33" cy="114" rx="10" ry="6" fill="white" />
+    <ellipse cx="67" cy="114" rx="10" ry="6" fill="white" />
+  </svg>
+  <div class="content-wrapper">
+    <div style="text-align: center; margin-bottom: 40px;">
+      <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo VetDeFrance" width="280"
+        style="margin-bottom: 25px;">
+
+      <div class="icon-wrapper primary" style="margin: 0 auto 20px; width: 64px; height: 64px; font-size: 2.5rem;">
+        <i class="fas fa-hospital"></i>
+      </div>
+
+      <h1 style="margin-bottom: 12px;"><i class="fas fa-hospital"></i> Nos Centres Vétérinaires</h1>
+      <p style="color: var(--text-light); font-size: 1.05rem;">
+        Retrouvez tous nos centres certifiés partout en France
+      </p>
+    </div>
+
+    <div class="card">
+      <h3 style="margin-top: 0; margin-bottom: 24px; display: flex; align-items: center; gap: 12px;">
+        <i class="fas fa-map-marker-alt" style="font-size: 1.5rem;"></i>
+        Liste des centres par ville
+      </h3>
+
+      {% if liste %}
+      <div style="max-height: 550px; overflow-y: auto; padding-right: 8px;">
+        <ul style="padding: 0; margin: 0;">
+          {% for elem in liste %}
+          <li style="list-style: none; margin-bottom: 12px;">
+            <a href="{{ url_for('info', codepostale=elem.codepostale, nomcentre=elem.nomcentre) }}"
+              style="display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; background: linear-gradient(135deg, rgba(16, 185, 129, 0.05), rgba(16, 185, 129, 0.02)); border-radius: 12px; border: 2px solid transparent; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); text-decoration: none;">
+              <span style="display: flex; align-items: center; gap: 12px;">
+                <i class="fas fa-hospital" style="font-size: 1.3rem;"></i>
+                <strong style="color: var(--text-dark); font-size: 1.05rem;">{{ elem.nomcentre }}</strong>
+              </span>
+              <span class="badge badge-info" style="font-size: 0.9rem;">{{ elem.codepostale }}</span>
+            </a>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% else %}
+      <div style="text-align: center; padding: 60px 30px;">
+        <div style="font-size: 4rem; margin-bottom: 20px; opacity: 0.5;">
+          <i class="fas fa-search"></i>
+        </div>
+        <p style="color: var(--text-light); font-size: 1.1rem; margin: 0;">
+          Aucun centre disponible pour le moment
+        </p>
+      </div>
+      {% endif %}
+    </div>
+
+    <div style="text-align: center; margin-top: 40px;">
+      <a href="{{ url_for('accueil') }}">
+        <button type="button" style="width: auto; display: inline-flex; align-items: center; gap: 10px;">
+          <i class="fas fa-arrow-left" style="font-size: 1.2rem;"></i>
+          Retour à l'accueil
+        </button>
+      </a>
+    </div>
+  </div>
+
+  <style>
+    /* Hover effect for center links */
+    li a:hover {
+      border-color: var(--primary-color) !important;
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.12), rgba(16, 185, 129, 0.06)) !important;
+      transform: translateX(8px);
+      box-shadow: 0 8px 20px rgba(16, 185, 129, 0.2);
+    }
+  </style>
+</body>
+
+</html>

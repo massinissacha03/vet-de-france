@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <title>Nouvel Animal - VetDeFrance</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" media="screen" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <a href="{{ url_for('pageemp') }}" class="logout-btn" title="Retour">
+        <i class="fas fa-arrow-left" style="font-size: 24px; color: white;"></i>
+    </a>
+
+    <div class="content-wrapper">
+        <div style="text-align: center; margin-bottom: 40px;">
+            <h1><i class="fas fa-plus-circle"></i> Enregistrer un nouvel animal</h1>
+            <p style="color: var(--text-light); font-size: 1.05rem;">
+                Ajoutez un animal et associez-le à son propriétaire
+            </p>
+        </div>
+
+        {% if erreur %}
+        <div class="card" style="background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(220, 38, 38, 0.1)); border-left: 4px solid var(--danger-color); margin-bottom: 24px;">
+            <p style="margin: 0; color: var(--danger-color); font-weight: 600;">
+                <i class="fas fa-exclamation-triangle"></i> {{ erreur }}
+            </p>
+        </div>
+        {% endif %}
+
+        {% if succes %}
+        <div class="card" style="background: linear-gradient(135deg, rgba(34, 197, 94, 0.1), rgba(22, 163, 74, 0.1)); border-left: 4px solid var(--success-color); margin-bottom: 24px;">
+            <p style="margin: 0; color: var(--success-color); font-weight: 600;">
+                <i class="fas fa-check-circle"></i> Animal enregistré avec succès ! ID: <strong>{{ ida_cree }}</strong>
+            </p>
+            <p style="margin-top: 12px; margin-bottom: 0;">
+                <a href="{{ url_for('ficheanimalemp', ida=ida_cree) }}" style="color: var(--success-color); font-weight: 700;">
+                    <i class="fas fa-eye"></i> Voir la fiche de l'animal
+                </a>
+            </p>
+        </div>
+        {% endif %}
+
+        <div class="card">
+            <form method="post">
+                <h3 style="margin-top: 0; margin-bottom: 20px; color: var(--primary-color);">
+                    <i class="fas fa-paw"></i> Informations de l'animal
+                </h3>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                    <div>
+                        <label for="nom"><i class="fas fa-signature"></i> Nom de l'animal *</label>
+                        <input type="text" id="nom" name="nom" placeholder="Ex: Médor, Felix..." required>
+                    </div>
+
+                    <div>
+                        <label for="espece"><i class="fas fa-dna"></i> Espèce *</label>
+                        <select id="espece" name="espece" required>
+                            <option value="">-- Sélectionner --</option>
+                            <option value="Chien">Chien</option>
+                            <option value="Chat">Chat</option>
+                            <option value="Lapin">Lapin</option>
+                            <option value="Hamster">Hamster</option>
+                            <option value="Oiseau">Oiseau</option>
+                            <option value="Reptile">Reptile</option>
+                            <option value="NAC">NAC (Nouveaux Animaux de Compagnie)</option>
+                            <option value="Autre">Autre</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                    <div>
+                        <label for="age"><i class="fas fa-birthday-cake"></i> Âge (en années)</label>
+                        <input type="number" id="age" name="age" placeholder="Ex: 3" min="0" max="50">
+                    </div>
+
+                    <div>
+                        <label for="sexe"><i class="fas fa-venus-mars"></i> Sexe *</label>
+                        <select id="sexe" name="sexe" required>
+                            <option value="">-- Sélectionner --</option>
+                            <option value="m">Mâle</option>
+                            <option value="f">Femelle</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <label for="signedist"><i class="fas fa-info-circle"></i> Signes distinctifs</label>
+                    <textarea id="signedist" name="signedist" rows="3" 
+                        placeholder="Ex: Tache blanche sur l'œil gauche, pelage roux..."></textarea>
+                </div>
+
+                <h3 style="margin-top: 32px; margin-bottom: 20px; color: var(--primary-color);">
+                    <i class="fas fa-user"></i> Propriétaire
+                </h3>
+
+                <div style="margin-bottom: 24px;">
+                    <label for="idpro"><i class="fas fa-user-tag"></i> Sélectionner le propriétaire *</label>
+                    <select id="idpro" name="idpro" required style="font-size: 0.95rem;">
+                        <option value="">-- Rechercher un propriétaire --</option>
+                        {% for p in proprietaires %}
+                        <option value="{{ p.idpro }}">
+                            {{ p.nom }} {{ p.prenom }} - Tel: {{ p.tel }} {% if p.mail %}({{ p.mail }}){% endif %}
+                        </option>
+                        {% endfor %}
+                    </select>
+                    <small style="color: var(--text-light); display: block; margin-top: 8px;">
+                        <i class="fas fa-info-circle"></i> Si le propriétaire n'est pas dans la liste, il doit d'abord créer un compte
+                    </small>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                        <input type="checkbox" name="inscrire_centre" value="1" checked 
+                            style="width: auto; margin: 0;">
+                        <span><i class="fas fa-hospital"></i> Inscrire automatiquement l'animal dans mon centre</span>
+                    </label>
+                </div>
+
+                <div style="display: flex; gap: 12px; margin-top: 32px;">
+                    <button type="submit" style="flex: 1;">
+                        <i class="fas fa-save"></i> Enregistrer l'animal
+                    </button>
+                    <a href="{{ url_for('pageemp') }}" style="flex: 1; text-decoration: none;">
+                        <button type="button" style="background: var(--text-lighter); width: 100%;">
+                            <i class="fas fa-times"></i> Annuler
+                        </button>
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
