@@ -111,7 +111,7 @@ vetdefrance/
 
 ## Base de données
 
-Le projet utilise PostgreSQL avec 7 tables principales :
+Le projet utilise PostgreSQL avec 10 tables principales :
 
 ### Tables
 - **employes** : Vétérinaires des centres (login, mdp hashé, nom, prénom, centre)
